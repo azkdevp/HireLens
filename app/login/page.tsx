@@ -1,0 +1,3 @@
+import Link from "next/link";
+import { LoginForm } from "./login-form";
+export default function LoginPage() { return <main className="shell" style={{minHeight:"100vh",display:"grid",placeItems:"center"}}><section className="card" style={{width:"min(430px,100%)"}}><p className="badge">HIRELENS</p><h1 style={{fontSize:34,marginBottom:8}}>Recruitment, in focus.</h1><p className="muted" style={{marginTop:0,marginBottom:28}}>Sign in to your secure hiring workspace.</p><LoginForm /><p style={{marginTop:18,textAlign:"center"}}><Link className="muted" href="/forgot-password">Forgot password?</Link></p></section></main>; }

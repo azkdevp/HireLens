@@ -1,0 +1,1 @@
+import {requireProfile} from "@/lib/auth";import {VacancyForm} from "@/components/forms";export default async function NewVacancy(){await requireProfile(["HR_RECRUITER"]);return <section className="card"><h1>Create vacancy</h1><p className="muted">A default Applied → Screening → Offer workflow will be created and can be configured next.</p><VacancyForm/></section>}

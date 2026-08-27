@@ -1,0 +1,1 @@
+import Link from "next/link"; export default function AccessDenied(){return <section className="card"><p className="badge closed">ACCESS DENIED</p><h1>You don’t have permission to view this page.</h1><p className="muted">Your account is signed in, but this action is outside your assigned role.</p><Link className="btn" href="/dashboard">Return to dashboard</Link></section>}
