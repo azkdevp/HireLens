@@ -1,0 +1,121 @@
+{
+  "runId": "2026-08-27T08-39-48-018Z-6a6f0345",
+  "infrastructure": "Ready",
+  "cleanupStatus": "Removed only this run's synthetic vacancy, candidate, CV, stages and dependent audit records.",
+  "results": [
+    {
+      "id": "TC-S01",
+      "description": "Unauthenticated dashboard redirects to login",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S01-route-protection.png"
+      ]
+    },
+    {
+      "id": "TC-S02",
+      "description": "Invalid login safely rejected",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S02-invalid-login.png"
+      ]
+    },
+    {
+      "id": "TC-S03",
+      "description": "HR login opens HR dashboard",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S03-hr-login.png"
+      ]
+    },
+    {
+      "id": "TC-S04",
+      "description": "Interviewer read-only access and HR-route denial",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S04-interviewer-readonly.png",
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S04-interviewer-access-denied.png"
+      ]
+    },
+    {
+      "id": "TC-S05",
+      "description": "Management read-only access and HR-route denial",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S05-management-readonly.png",
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S05-management-access-denied.png"
+      ]
+    },
+    {
+      "id": "TC-S06",
+      "description": "Create synthetic vacancy",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S06-vacancy-created.png"
+      ]
+    },
+    {
+      "id": "TC-S07",
+      "description": "Vacancy details persist",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S07-vacancy-details.png"
+      ]
+    },
+    {
+      "id": "TC-S08",
+      "description": "Configure recruitment stages and persist order",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S08-stage-configuration.png"
+      ]
+    },
+    {
+      "id": "TC-S09",
+      "description": "Create candidate associated with the synthetic vacancy",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S09-candidate-created.png"
+      ]
+    },
+    {
+      "id": "TC-S10",
+      "description": "Upload synthetic PDF CV",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S10-cv-uploaded.png"
+      ]
+    },
+    {
+      "id": "TC-S11",
+      "description": "Candidate appears exactly once in Applied pipeline stage",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S11-pipeline.png"
+      ]
+    },
+    {
+      "id": "TC-S12",
+      "description": "Move Applied to Screening and reload",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S12-stage-transition.png"
+      ]
+    },
+    {
+      "id": "TC-S13",
+      "description": "Record ON_HOLD and reload",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S13-outcome.png"
+      ]
+    },
+    {
+      "id": "TC-S14",
+      "description": "Activity timeline contains journey events",
+      "result": "PASS",
+      "screenshots": [
+        "2026-08-27T08-39-48-018Z-6a6f0345/TC-S14-activity-timeline.png"
+      ]
+    }
+  ]
+}
