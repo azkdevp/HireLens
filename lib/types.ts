@@ -9,3 +9,6 @@ export type InterviewStatus = "SCHEDULED" | "COMPLETED" | "CANCELLED";
 export type Interview = { id:string; candidate_id:string; vacancy_id:string; stage_id:string; scheduled_at:string; timezone:string; method:InterviewMethod; location:string|null; meeting_link:string|null; notes:string; status:InterviewStatus; created_at:string; updated_at:string; cancelled_at:string|null; candidate?:Pick<Candidate,"id"|"full_name">&{vacancy?:Pick<Vacancy,"id"|"title">}; stage?:Pick<Stage,"id"|"name"> };
 export type InterviewAssignment = { id:string; interview_id:string; interviewer_profile_id:string; feedback_required:boolean; assigned_at:string };
 export type Notification = { id:string; type:"INTERVIEW_ASSIGNED"|"INTERVIEW_CHANGED"|"FEEDBACK_REQUIRED"; title:string; message:string; link_path:string; created_at:string; read_at:string|null };
+export type EvaluationCriterion={id:string;vacancy_id:string;stage_id:string|null;name:string;description:string;weight:number|null;rating_required:boolean;display_order:number;active:boolean};
+export type FeedbackRating={criterion_id:string;criterion_name:string;criterion_weight:number|null;rating:number};
+export type FeedbackSubmission={id:string;interview_id:string|null;stage_id:string;remarks:string;strengths:string;concerns:string;status:"DRAFT"|"SUBMITTED";submitted_at:string|null;feedback_ratings?:FeedbackRating[]};

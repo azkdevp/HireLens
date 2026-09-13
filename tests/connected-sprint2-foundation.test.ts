@@ -310,7 +310,12 @@ describe.sequential("connected Supabase Sprint 2 Phase A security", () => {
 
   it("keeps management read-only and notifications recipient-scoped", async () => {
     const criteriaWrite = await management.from("evaluation_criteria").update({ name: "UNAUTHORISED" }).eq("id", criterionIds[0]).select("id");
-    expect(criteriaWrite.data).toEqual([]);
+    expect(criteriaWrite.error).toBeTruthy();
+    expect(criteriaWrite.data).toBeNull();
+    const { data: unchangedCriterion, error: unchangedCriterionError } = await service
+      .from("evaluation_criteria").select("name").eq("id", criterionIds[0]).single();
+    expect(unchangedCriterionError).toBeNull();
+    expect(unchangedCriterion?.name).not.toBe("UNAUTHORISED");
     const { data: notification, error } = await service.from("notifications").insert({
       recipient_profile_id: interviewerAProfileId, type: "FEEDBACK_REQUIRED", title: "Feedback required",
       message: "Complete assigned interview feedback.", candidate_id: candidateIds[0], interview_id: interviewIds[0],
