@@ -1,0 +1,2 @@
+import"server-only";import type{FeedbackSummaryProvider}from"@/lib/ai-feedback";import{configuredGeminiProvider}from"@/lib/gemini-feedback-provider";import{configuredOpenAiProvider}from"@/lib/openai-feedback-provider";
+export function configuredFeedbackProvider():FeedbackSummaryProvider|null{switch(process.env.AI_PROVIDER?.trim().toLowerCase()){case"gemini":return configuredGeminiProvider();case"openai":return configuredOpenAiProvider();default:return null}}

@@ -1,9 +1,7 @@
-import type{SubmittedEvaluation}from"@/lib/decision-support";
-
-export type AiSummaryState={status:"UNAVAILABLE";message:string;evidenceIds:string[]};
-
-export async function summarizeSubmittedFeedback(evaluations:SubmittedEvaluation[]):Promise<AiSummaryState>{
-  // Provider boundary only. No provider or key is configured in this repository,
-  // so evidence is never sent externally and no deterministic output is mislabeled as AI.
-  return{status:"UNAVAILABLE",message:evaluations.length?"AI summary is temporarily unavailable. Review the submitted feedback below.":"AI summary is unavailable because there is no submitted feedback to summarize.",evidenceIds:evaluations.map(item=>item.id)};
-}
+import{z}from"zod";import type{SubmittedEvaluation}from"@/lib/decision-support";
+const summarySchema=z.object({strengths:z.array(z.string().trim().min(1).max(240)).max(6),points_for_review:z.array(z.string().trim().min(1).max(240)).max(6),themes:z.array(z.string().trim().min(1).max(240)).max(6)}).strict();
+export type AiFeedbackSummary=z.infer<typeof summarySchema>;export type AiSummaryState={status:"READY";summary:AiFeedbackSummary}|{status:"EMPTY"|"UNAVAILABLE";message:string};export type AiEvidence={remarks:string;strengths:string;concerns:string;ratings:{criterion:string;rating:number}[]};export interface FeedbackSummaryProvider{generate(evidence:AiEvidence[]):Promise<unknown>}
+const forbidden=/\b(recommend(?:ed|ation)?|hire|reject|rank(?:ed|ing)?|success probability|predict(?:ed|ion)?|race|ethnicity|religion|pregnan(?:t|cy)|disabilit(?:y|ies)|medical condition|sexual orientation)\b/i;
+export function minimumEvidence(evaluations:SubmittedEvaluation[]):AiEvidence[]{return evaluations.map(item=>({remarks:item.remarks.trim(),strengths:item.strengths.trim(),concerns:item.concerns.trim(),ratings:item.feedback_ratings.map(rating=>({criterion:rating.criterion_name,rating:rating.rating}))}))}
+export function validateSummary(value:unknown){const parsed=summarySchema.safeParse(value);if(!parsed.success)return null;return Object.values(parsed.data).flat().some(item=>forbidden.test(item))?null:parsed.data}
+export async function summarizeSubmittedFeedback(evaluations:SubmittedEvaluation[],provider:FeedbackSummaryProvider|null=null):Promise<AiSummaryState>{if(!evaluations.length)return{status:"EMPTY",message:"AI summary is unavailable because there is no submitted feedback to summarize."};if(!provider)return{status:"UNAVAILABLE",message:"AI summary is not configured. Review the submitted feedback below."};try{const summary=validateSummary(await provider.generate(minimumEvidence(evaluations)));return summary?{status:"READY",summary}:{status:"UNAVAILABLE",message:"AI summary could not be validated. Review the submitted feedback below."}}catch{return{status:"UNAVAILABLE",message:"AI summary is temporarily unavailable. Review the submitted feedback below."}}}
